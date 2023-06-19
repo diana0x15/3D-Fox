@@ -4,18 +4,22 @@ import Camera from "./Camera.js";
 import * as THREE from "three";
 import Renderer from "./Renderer.js";
 import World from "./World/World.js";
+import Resources from "./Resources.js";
+import sources from "./sources.js";
 
-let instance = null;
+var experienceInstance = null;
 
 /**
- * The singleton class representing the experience.
+ * The singleton class representing the experience. This provides
+ * global access to main app components, such as canvas, scene,
+ * resources, camera, renderer, world, etc.
  */
 export default class Experience {
   constructor(canvas) {
-    if (instance) {
-      return instance;
+    if (experienceInstance) {
+      return experienceInstance;
     }
-    instance = this;
+    experienceInstance = this;
 
     if (!canvas) {
       console.error("Missing canvas element.");
@@ -27,6 +31,7 @@ export default class Experience {
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
+    this.resources = new Resources(sources);
     this.camera = new Camera();
     this.renderer = new Renderer();
     this.world = new World();
@@ -41,6 +46,7 @@ export default class Experience {
 
   update() {
     this.camera.update();
+    this.world.update();
     this.renderer.update();
   }
 

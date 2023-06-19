@@ -1,4 +1,4 @@
-# Template Three.js App
+# 3D Fox
 
 ## Setup
 
