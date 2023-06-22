@@ -6,6 +6,7 @@ import Renderer from "./Renderer.js";
 import World from "./World/World.js";
 import Resources from "./Resources.js";
 import sources from "./sources.js";
+import Debug from "./Debug.js";
 
 var experienceInstance = null;
 
@@ -25,9 +26,10 @@ export default class Experience {
       console.error("Missing canvas element.");
       return;
     }
+    this.canvas = canvas;
 
     // Setup
-    this.canvas = canvas;
+    this.debug = new Debug();
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
