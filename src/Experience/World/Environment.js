@@ -9,9 +9,11 @@ export default class Environment {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
+    this.debug = this.experience.debug;
 
     this.setSunLight();
     this.setEnvironmentMap();
+    this.setDebug();
   }
 
   setSunLight() {
@@ -45,5 +47,44 @@ export default class Environment {
     };
 
     this.environmentMap.updateMaterial();
+  }
+
+  setDebug() {
+    if (this.debug.isActive) {
+      this.debugFolder = this.debug.ui.addFolder("Environment");
+
+      // Light intensity.
+      this.debugFolder
+        .add(this.environmentMap, "intensity")
+        .name("envMapIntensity")
+        .min(0)
+        .max(4)
+        .step(0.001)
+        .onChange(this.environmentMap.updateMaterial);
+
+      // Sun position x.
+      this.debugFolder
+        .add(this.sunLight.position, "x")
+        .name("sunLightX")
+        .min(0)
+        .max(8)
+        .step(0.005);
+
+      // Sun position y.
+      this.debugFolder
+        .add(this.sunLight.position, "y")
+        .name("sunLightY")
+        .min(0)
+        .max(8)
+        .step(0.005);
+
+      // Sun position z.
+      this.debugFolder
+        .add(this.sunLight.position, "z")
+        .name("sunLightZ")
+        .min(0)
+        .max(8)
+        .step(0.005);
+    }
   }
 }
